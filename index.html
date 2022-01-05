@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel = "icon" href =https://i.ibb.co/60jnNnw/You-Tube-full-color-icon-2017-svg-removebg-preview.png>
+    <style>
+        .container{
+            height: 50px;
+            width: 100%;
+            display: flex;
+          
+            background-color: white;
+           
+            
+            /* border:  2px solid red; */
+
+        }
+        #item-1{
+            height: 100%;
+            width: 25%;
+            /* border: 2px solid red; */
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        #item-1>img{
+            height: 34px;
+            width:80 px;
+        }
+         .fa-bars{
+          font-size: 30px;
+          margin: 0%;
+
+        }
+        #item-2{
+            height: 100%;
+            width: 50%;
+            border: 1px solid rgb(0, 0, 0);
+            display: flex;
+            justify-content: space-around;
+           align-items: center;
+        }  
+        input{
+            height: 95%;
+            width: 95%;
+            font-size: 25px;
+            border:  none;
+        
+        }
+         .fa-search{
+            font-size: 25px;
+        }
+        #item-3{
+            height: 100%;
+            width: 25%;
+            /* border: 2px solid black; */
+            font-size: 30px;
+            display: flex;
+            justify-content: space-around;
+           align-items: center;
+        }
+    
+        button{
+           
+            /* background-color: none; */
+            height: 51px;
+            padding: 9px;
+            cursor: pointer;
+           width: 70px;
+          
+            
+        }
+        #search_results{
+            width: 95%;
+          margin: 100px auto;
+            height: 700px;
+            margin-top: 50px;
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: repeat(4,1fr);
+            overflow: auto;
+        
+            
+        }
+    </style>
+</head>
+<body>
+ <div class="container">
+     <div id="item-1">
+        <i class="fas fa-bars"></i>
+        <img src="https://i.ibb.co/Qn3cQ8C/hgrsghgehge.png" alt="">
+     </div>
+     <div id="item-2">
+         <input type="text" placeholder="Search" id="video">
+         <button  onclick="searchVideo()"><i class="fas fa-search"></i></button>
+        
+     </div>
+     <div id="item-3">
+        <i class="fal fa-video-plus"></i>
+        <i class="far fa-th"></i>
+        <i class="far fa-bell"></i>
+        <i class="fas fa-user-circle"></i>
+     </div>
+     
+ </div>
+ <div id="search_results"></div>
+    
+</body>
+</html>
+<script>
+    const API="AIzaSyC9lo26qawkWtEKu3L06EP6XaZ-jwJzChI";
+    const results_div=document.getElementById("search_results");
+      
+    async function searchVideo(){
+        try{
+            let video_query=document.getElementById("video").value;
+            
+            let response=await fetch(
+                `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${video_query}&type=video&key=${API}&maxResults=20`
+            );
+            let data = await response.json();
+            console.log("data:",data);
+            let videos=data.items;
+            appenVideos(videos);
+        }catch(e){
+        // console.log("e:",e)
+    }
+             
+    }
+
+
+
+    const appenVideos=(items)=>{
+       results_div.innerHTML=null;
+        items.map((el)=>{
+          console.log("el:",el)
+           let{
+               id:{videoId},
+                }=el;
+          
+               // console.log("videoId:",videoId)
+
+               let iframe=document.createElement("iframe");
+               iframe.src=`https://www.youtube.com/embed/${videoId}`;
+               
+                iframe.setAttribute("allowfullscreen","true")
+                results_div.append(iframe)
+        
+        });
+    }
+    
+    
+   
+    
+
+</script>
