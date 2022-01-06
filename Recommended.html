@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="icon" href=https://i.ibb.co/60jnNnw/You-Tube-full-color-icon-2017-svg-removebg-preview.png>
+    <style>
+        body {
+            font-family: 'Merriweather', serif;
+        }
+
+        .main_div {
+            height: 750px;
+            width: 100%;
+            display: flex;
+            /* border: 2px solid green; */
+            margin-top: 25px;
+            margin-left: 10px;
+            justify-content: space-between;
+
+        }
+
+        #result_div {
+            display: flex;
+        }
+
+        #video_details {
+            height: 80%;
+            width: 70%;
+            /* border: 2px solid red; */
+        }
+
+        #recommendation {
+            height: 100%;
+            width: 28%;
+            /* border: 2px solid red; */
+            overflow-x: auto;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+        }
+
+        #recommendation>div {
+            /* border: 2px solid red; */
+            margin: 10px;
+        }
+
+        #recommendation>div>img {
+            padding: 5px;
+        }
+
+        #recommendation>div>p {
+            font-size: 16px;
+            padding: 5px;
+        }
+
+        #recommendation>img {
+            height: 50px;
+            width: 70px;
+        }
+
+        #iframe {
+            height: 100%;
+            width: 100%;
+        }
+
+        .container {
+            height: 50px;
+            width: 100%;
+            display: flex;
+            background-color: white;
+            /* border:  2px solid red; */
+        }
+
+        #item-1 {
+            height: 100%;
+            width: 25%;
+            /* border: 2px solid red; */
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        #item-1>img {
+            height: 34px;
+            width: 80 px;
+        }
+
+        .fa-bars {
+            font-size: 30px;
+            margin: 0%;
+
+        }
+
+        #item-2 {
+            height: 100%;
+            width: 50%;
+            border: 1px solid rgb(0, 0, 0);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        input {
+            height: 95%;
+            width: 95%;
+            font-size: 25px;
+            border: none;
+        }
+
+        .fa-search {
+            font-size: 25px;
+        }
+
+        #item-3 {
+            height: 100%;
+            width: 25%;
+            /* border: 2px solid black; */
+            font-size: 30px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        #item-3>img {
+            height: 45px;
+            width: 45px;
+        }
+
+        button {
+            /* background-color: none; */
+            height: 51px;
+            padding: 9px;
+            cursor: pointer;
+            width: 70px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="item-1">
+            <i class="fas fa-bars"></i>
+            <img src="https://i.ibb.co/Qn3cQ8C/hgrsghgehge.png" alt="">
+        </div>
+        <div id="item-2">
+            <input type="text" placeholder="Search" id="video">
+            <button onclick="searchVideo()"><i class="fas fa-search" id="videomain"></i></button>
+
+        </div>
+        <div id="item-3">
+            <i class="fal fa-video-plus"></i>
+            <i class="far fa-th"></i>
+            <i class="far fa-bell"></i>
+            <img src="https://i.ibb.co/VMtyNxv/XRJe-POW-400x400-modified.png" alt="">
+        </div>
+
+    </div>
+    <div class="main_div">
+        <div id="video_details"></div>
+        <div id="recommendation"></div>
+
+    </div>
+
+
+</body>
+
+</html>
+<script>
+
+
+    let { videoId } = JSON.parse(localStorage.getItem('clicked_video')) || [];
+
+    function callevel() {
+        let video_div = document.getElementById('video_details')
+        let iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}`
+        iframe.setAttribute('allowfullscreen', "true")
+        iframe.setAttribute("id", "iframe")
+
+
+        video_div.append(iframe,)
+        // showVideo(evel);
+    }
+    callevel();
+
+    let key = JSON.parse(localStorage.getItem('key'))
+    let key2 = key.items
+    // console.log(key2);
+    key2.map(({ snippet, id: { videoId } }) => {
+        let recommendation = document.querySelector("#recommendation")
+        // console.log('snippet:', snippet)
+
+        let result_div = document.createElement("div")
+
+        let data_send = {
+            snippet,
+            videoId
+        }
+        result_div.onclick = () => {
+            showVideo(data_send);
+        }
+
+
+        let title = document.createElement('p')
+        title.innerText = snippet.title;
+
+        let thumbnails = document.createElement('img')
+        thumbnails.src = snippet.thumbnails.default.url;
+        result_div.append(thumbnails, title)
+        result_div.setAttribute("id", "result_div")
+        recommendation.append(result_div)
+
+    });
+    function showVideo(evel) {
+        // console.log(evel)
+        localStorage.setItem("clicked_video", JSON.stringify(evel))
+        recommendVideo(evel)
+
+
+    };
+    let video_div = document.getElementById('video_details')
+    function recommendVideo(data) {
+        video_div.innerHTML = "";
+        let iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${data.videoId}`
+        iframe.setAttribute('allowfullscreen', "true")
+        iframe.setAttribute("id", "iframe")
+        video_div.append(iframe)
+    }
+
+
+    var search_move = document.getElementById("video");
+    search_move.addEventListener("click", () => {
+        window.location.href = "index.html"
+    })
+
+
+
+
+
+</script>

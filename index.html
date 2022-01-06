@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube</title>
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <link rel = "icon" href =https://i.ibb.co/60jnNnw/You-Tube-full-color-icon-2017-svg-removebg-preview.png>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="icon" href=https://i.ibb.co/60jnNnw/You-Tube-full-color-icon-2017-svg-removebg-preview.png>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <style>
-        .container{
+        body {
+            font-family: 'Merriweather', serif;
+        }
+
+        .container {
             height: 50px;
             width: 100%;
             display: flex;
-          
             background-color: white;
-           
-            
-            /* border:  2px solid red; */
-
+            /* border:  2px solid red;  */
         }
-        #item-1{
+
+        #item-1 {
             height: 100%;
             width: 25%;
             /* border: 2px solid red; */
@@ -27,134 +31,193 @@
             justify-content: space-around;
             align-items: center;
         }
-        #item-1>img{
-            height: 34px;
-            width:80 px;
-        }
-         .fa-bars{
-          font-size: 30px;
-          margin: 0%;
+
+        #item-1>img {
+            height: 30px;
+            width: 70 px;
 
         }
-        #item-2{
+
+        .fa-bars {
+            font-size: 30px;
+            margin: 0%;
+        }
+
+        #item-2 {
             height: 100%;
             width: 50%;
             border: 1px solid rgb(0, 0, 0);
             display: flex;
             justify-content: space-around;
-           align-items: center;
-        }  
-        input{
+            align-items: center;
+        }
+
+        input {
             height: 95%;
             width: 95%;
             font-size: 25px;
-            border:  none;
-        
+            border: none;
+
         }
-         .fa-search{
+
+        .fa-search {
             font-size: 25px;
         }
-        #item-3{
+
+        #item-3 {
             height: 100%;
             width: 25%;
             /* border: 2px solid black; */
             font-size: 30px;
             display: flex;
             justify-content: space-around;
-           align-items: center;
+            align-items: center;
         }
-    
-        button{
-           
+
+        #item-3>img {
+            height: 45px;
+            width: 45px;
+        }
+
+        button {
+
             /* background-color: none; */
             height: 51px;
             padding: 9px;
             cursor: pointer;
-           width: 70px;
-          
-            
+            width: 70px;
         }
-        #search_results{
+
+        #search_results {
             width: 95%;
-          margin: 100px auto;
+            margin: 100px auto;
             height: 700px;
             margin-top: 50px;
             display: grid;
-            grid-gap: 10px;
-            grid-template-columns: repeat(4,1fr);
+            grid-gap: 15px;
+            grid-template-columns: repeat(4, 1fr);
             overflow: auto;
-        
-            
+            font-weight: bold;
+            /* border: 2px sold red; */
+        }
+
+        #search_results>div {
+            /* border: 2px solid red;  
+                    */
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+
+        }
+
+
+
+        #search_results>div>p {
+            font-size: 17px;
+            padding: 5px;
+
         }
     </style>
 </head>
+
 <body>
- <div class="container">
-     <div id="item-1">
-        <i class="fas fa-bars"></i>
-        <img src="https://i.ibb.co/Qn3cQ8C/hgrsghgehge.png" alt="">
-     </div>
-     <div id="item-2">
-         <input type="text" placeholder="Search" id="video">
-         <button  onclick="searchVideo()"><i class="fas fa-search"></i></button>
-        
-     </div>
-     <div id="item-3">
-        <i class="fal fa-video-plus"></i>
-        <i class="far fa-th"></i>
-        <i class="far fa-bell"></i>
-        <i class="fas fa-user-circle"></i>
-     </div>
-     
- </div>
- <div id="search_results"></div>
-    
+    <div class="container">
+        <div id="item-1">
+            <i class="fas fa-bars"></i>
+            <img src="https://i.ibb.co/Qn3cQ8C/hgrsghgehge.png" alt="">
+        </div>
+        <div id="item-2">
+            <input type="text" placeholder="Search" id="video">
+            <button onclick="searchVideo()"><i class="fas fa-search"></i></button>
+
+        </div>
+        <div id="item-3">
+            <i class="fal fa-video-plus"></i>
+            <i class="far fa-th"></i>
+            <i class="far fa-bell"></i>
+            <img src="https://i.ibb.co/VMtyNxv/XRJe-POW-400x400-modified.png" alt="">
+        </div>
+
+    </div>
+    <div id="search_results"></div>
+
 </body>
+
 </html>
 <script>
-    const API="AIzaSyC9lo26qawkWtEKu3L06EP6XaZ-jwJzChI";
-    const results_div=document.getElementById("search_results");
-      
-    async function searchVideo(){
-        try{
-            let video_query=document.getElementById("video").value;
-            
-            let response=await fetch(
-                `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${video_query}&type=video&key=${API}&maxResults=20`
+    const API = "AIzaSyC9lo26qawkWtEKu3L06EP6XaZ-jwJzChI";
+    const results_div = document.getElementById("search_results");
+
+    async function searchVideo() {
+        try {
+            let video_query = document.getElementById("video").value;
+
+            let response = await fetch(
+                `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${video_query}&type=video&key=${API}&maxResults=20&part=snippet`
             );
             let data = await response.json();
-            console.log("data:",data);
-            let videos=data.items;
+            console.log("data:++++++", data);
+            localStorage.setItem('key', JSON.stringify(data))
+            let videos = data.items;
             appenVideos(videos);
-        }catch(e){
-        // console.log("e:",e)
+        } catch (e) {
+            console.log("e", e)
+        }
+
     }
-             
+    // <-------home page video start here------------------->
+    async function searchVideohomr() {
+        try {
+            let video_query = document.getElementById("video").value;
+
+            let response = await fetch(
+                `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${"trainding india"}&type=video&key=${API}&maxResults=20&part=snippet`
+            );
+            let data = await response.json();
+            console.log("data:++++++", data);
+            let videos = data.items;
+
+
+            appenVideos(videos);
+        } catch (e) {
+            console.log("e", e)
+        }
+
     }
+    searchVideohomr()
+
+    // <-------home page video end here------------------->
 
 
 
-    const appenVideos=(items)=>{
-       results_div.innerHTML=null;
-        items.map((el)=>{
-          console.log("el:",el)
-           let{
-               id:{videoId},
-                }=el;
-          
-               // console.log("videoId:",videoId)
+    const appenVideos = (items) => {
+        results_div.innerHTML = null;
+        items.map(({ snippet, id: { videoId } }) => {
+            console.log('snippet:', snippet)
 
-               let iframe=document.createElement("iframe");
-               iframe.src=`https://www.youtube.com/embed/${videoId}`;
-               
-                iframe.setAttribute("allowfullscreen","true")
-                results_div.append(iframe)
-        
+
+            let result_div = document.createElement("div")
+            let title = document.createElement('p')
+            title.innerText = snippet.title;
+            let thumbnails = document.createElement('img')
+            thumbnails.src = snippet.thumbnails.medium.url
+
+            let data_to_send = {
+                snippet,
+                videoId
+            }
+            result_div.onclick = () => {
+                showVideo(data_to_send)
+            }
+            result_div.append(thumbnails, title);//all out
+            results_div.append(result_div)//all out
+
         });
     }
-    
-    
-   
-    
+
+    function showVideo(data) {
+        localStorage.setItem('clicked_video', JSON.stringify(data))
+        window.location.href = "Recommended.html"
+    }
+
+
 
 </script>
