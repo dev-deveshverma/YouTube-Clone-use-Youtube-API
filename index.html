@@ -154,7 +154,7 @@
                 `https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${video_query}&type=video&key=${API}&maxResults=20&part=snippet`
             );
             let data = await response.json();
-            console.log("data:++++++", data);
+            console.log("data:+++", data);
             localStorage.setItem('key', JSON.stringify(data))
             let videos = data.items;
             appenVideos(videos);
